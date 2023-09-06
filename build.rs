@@ -4,6 +4,23 @@ use std::path::PathBuf;
 fn main() {
     println!("cargo:rerun-if-changed=build.rs");
 
+    // bash
+    let bash_dir: PathBuf = ["vendor", "tree-sitter-bash", "src"].iter().collect();
+
+    println!("cargo:rerun-if-changed=vendor/tree-sitter-bash/src/parser.c");
+    cc::Build::new()
+        .include(&bash_dir)
+        .warnings(false)
+        .file(bash_dir.join("parser.c"))
+        .compile("tree-sitter-bash");
+
+    println!("cargo:rerun-if-changed=vendor/tree-sitter-bash/src/scanner.c");
+    cc::Build::new()
+        .include(&bash_dir)
+        .warnings(false)
+        .file(bash_dir.join("scanner.c"))
+        .compile("tree_sitter_bash_scanner");
+
     // c
     let c_dir: PathBuf = ["vendor", "tree-sitter-c", "src"].iter().collect();
 

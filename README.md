@@ -91,6 +91,7 @@ For example, here's the list for the current version of `tree-grepper`:
 
 ```console
 $ tree-grepper --languages
+bash
 c
 cpp
 elixir

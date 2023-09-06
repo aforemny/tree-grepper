@@ -6,6 +6,7 @@ use strum_macros::{Display, EnumIter, EnumVariantNames, FromRepr};
 #[derive(Display, FromRepr, EnumIter, EnumVariantNames, PartialEq, Eq, Hash, Debug)]
 #[strum(serialize_all = "lowercase")]
 pub enum Language {
+    Bash,
     C,
     Cpp,
     Elixir,
@@ -31,6 +32,7 @@ impl Language {
     pub fn language(&self) -> tree_sitter::Language {
         unsafe {
             match self {
+                Language::Bash => tree_sitter_bash(),
                 Language::C => tree_sitter_c(),
                 Language::Cpp => tree_sitter_cpp(),
                 Language::Elixir => tree_sitter_elixir(),
@@ -56,6 +58,7 @@ impl Language {
 
     pub fn name_for_types_builder(&self) -> &str {
         match self {
+            Language::Bash => "bash",
             Language::C => "c",
             Language::Cpp => "cpp",
             Language::Elixir => "elixir",
@@ -138,6 +141,7 @@ mod tests {
 }
 
 extern "C" {
+    fn tree_sitter_bash() -> tree_sitter::Language;
     fn tree_sitter_c() -> tree_sitter::Language;
     fn tree_sitter_cpp() -> tree_sitter::Language;
     fn tree_sitter_elixir() -> tree_sitter::Language;

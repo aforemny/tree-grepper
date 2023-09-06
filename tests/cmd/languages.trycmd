@@ -1,5 +1,6 @@
 ```
 $ tree-grepper --languages
+bash
 c
 cpp
 elixir
