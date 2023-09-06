@@ -6,7 +6,6 @@ use strum_macros::{Display, EnumIter, EnumVariantNames, FromRepr};
 #[derive(Display, FromRepr, EnumIter, EnumVariantNames, PartialEq, Eq, Hash, Debug)]
 #[strum(serialize_all = "lowercase")]
 pub enum Language {
-    Bash,
     C,
     Cpp,
     Elixir,
@@ -21,6 +20,7 @@ pub enum Language {
     Python,
     Ruby,
     Rust,
+    Sh,
     TypeScript,
 }
 
@@ -32,21 +32,21 @@ impl Language {
     pub fn language(&self) -> tree_sitter::Language {
         unsafe {
             match self {
-                Language::Bash => tree_sitter_bash(),
-                Language::C => tree_sitter_c(),
                 Language::Cpp => tree_sitter_cpp(),
+                Language::C => tree_sitter_c(),
                 Language::Elixir => tree_sitter_elixir(),
                 Language::Elm => tree_sitter_elm(),
                 Language::Go => tree_sitter_go(),
                 Language::Haskell => tree_sitter_haskell(),
-                Language::Java => tree_sitter_java(),
                 Language::JavaScript => tree_sitter_javascript(),
+                Language::Java => tree_sitter_java(),
                 Language::Markdown => tree_sitter_markdown(),
                 Language::Nix => tree_sitter_nix(),
                 Language::Php => tree_sitter_php(),
                 Language::Python => tree_sitter_python(),
                 Language::Ruby => tree_sitter_ruby(),
                 Language::Rust => tree_sitter_rust(),
+                Language::Sh => tree_sitter_bash(),
                 Language::TypeScript => tree_sitter_typescript(),
             }
         }
@@ -58,7 +58,6 @@ impl Language {
 
     pub fn name_for_types_builder(&self) -> &str {
         match self {
-            Language::Bash => "bash",
             Language::C => "c",
             Language::Cpp => "cpp",
             Language::Elixir => "elixir",
@@ -73,6 +72,7 @@ impl Language {
             Language::Python => "py",
             Language::Ruby => "ruby",
             Language::Rust => "rust",
+            Language::Sh => "sh",
             Language::TypeScript => "ts",
         }
     }
